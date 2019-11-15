@@ -9,24 +9,25 @@ We need 3 doors(maybe more). One door has a new car behind it. The other two hav
         b. The chosen door is revealed after
 '''
 import random
-prizes = []
-choice = []
 
 # Randomizes the elements of the prizes list
 def assign_prizes():
-    prizes = random.shuffle([0,0,1])
+    prizes = [0,0,1]
+    random.shuffle(prizes)
+    return prizes
 
 # Chooses a door at random
 def door_choice(lst):
-    print(lst)
-    choice = lst.pop(lst[0])
-    return choice
-    
+    popped = lst.pop(0)
+    remove_door(lst)
+    lst.insert(0,popped)
+    return lst
+
 # Removes one of the wrong doors
-def remove_door(prizes):
-    for door in prizes:
-        if prizes[door] == False:
-            prizes.remove(prizes[door])
+def remove_door(lst):
+    for door in lst:
+        if lst[door] == False:
+            lst.remove(lst[door])
             break
 
 # def clean_up(choices):
@@ -39,13 +40,34 @@ def remove_door(prizes):
 #     elif door_choice == 3:
 #         remove_door(prizes[0],prizes[1])
 
-def reveal():
-    pass
-
 # main sequence
-# while True:
-#     assign_prizes()
-#     choice()
-#     remove_door()
-#     choice()
-#     reveal()
+def start(switch = False):
+    blah = door_choice(assign_prizes())
+    if switch == False:
+        if blah[0] == True:
+            print('You win a new car!')
+            return True
+        else:
+            print('You won a smelly goat')
+            return False
+    else:
+        if blah[1] == True:
+            print('You win a new car!')
+            return True
+        else:
+            print('You won a smelly goat')
+            return False      
+
+def win_rate(n_trials, switch = False):
+    if  switch == False:
+        result = [start() for _ in range(n_trials)]
+        return sum(result) / len(result)
+    else:
+        result = [start(True) for _ in range(n_trials)]
+        return sum(result) / len(result)        
+
+    # def same_prob(self, n_trials):
+    #     result = [self.same_color_test(self.choose_two()) for _ in range(n_trials)]
+    #     print(result)
+    #     # return result.count(True) / len(result)
+    #     return sum(result) / len(result)
