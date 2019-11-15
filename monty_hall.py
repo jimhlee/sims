@@ -70,7 +70,6 @@ def win_rate(n_trials, foo = False):
     result = [start(foo) for _ in range(n_trials)]
     return sum(result) / len(result)
        
-
     # def same_prob(self, n_trials):
     #     result = [self.same_color_test(self.choose_two()) for _ in range(n_trials)]
     #     print(result)
