@@ -6,7 +6,6 @@ We need 3 doors(maybe more). One door has a new car behind it. The other two hav
     4. Player Choice
     5. The big reveal! 
         a. The unchosen door is revealed first
-        b. The chosen door is revealed after
 '''
 import random
 
@@ -25,9 +24,9 @@ def door_choice(lst):
 
 # Removes one of the wrong doors
 def remove_door(lst):
-    for door in lst:
-        if lst[door] == False:
-            lst.remove(lst[door])
+    for i in lst:
+        if i == False:
+            lst.remove(i)
             break
 
 # def clean_up(choices):
@@ -43,28 +42,34 @@ def remove_door(lst):
 # main sequence
 def start(switch = False):
     blah = door_choice(assign_prizes())
-    if switch == False:
-        if blah[0] == True:
-            print('You win a new car!')
-            return True
-        else:
-            print('You won a smelly goat')
-            return False
+    # won = blah[1 if switch else 0]
+    won = blah[int(switch)]
+    if won:
+        print('You win a new car!')
+        return True
     else:
-        if blah[1] == True:
-            print('You win a new car!')
-            return True
-        else:
-            print('You won a smelly goat')
-            return False      
+        print('You won a smelly goat')
+        return False
 
-def win_rate(n_trials, switch = False):
-    if  switch == False:
-        result = [start() for _ in range(n_trials)]
-        return sum(result) / len(result)
-    else:
-        result = [start(True) for _ in range(n_trials)]
-        return sum(result) / len(result)        
+    #     if blah[0]:
+    #         print('You win a new car!')
+    #         return True
+    #     else:
+    #         print('You won a smelly goat')
+    #         return False
+    # else:
+    #     if blah[1]:
+    #         print('You win a new car!')
+    #         return True
+    #     else:
+    #         print('You won a smelly goat')
+    #         return False      
+
+def win_rate(n_trials, foo = False):
+    # if  switch == False:
+    result = [start(foo) for _ in range(n_trials)]
+    return sum(result) / len(result)
+       
 
     # def same_prob(self, n_trials):
     #     result = [self.same_color_test(self.choose_two()) for _ in range(n_trials)]
